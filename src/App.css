@@ -40,8 +40,8 @@
 
 
 .splash {
-  color: black;
-  background: #84cbe3;
+  color: white;
+  
   min-height: 100vh;
   display: flex;
   inset: 0;
