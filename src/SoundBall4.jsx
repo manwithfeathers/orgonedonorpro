@@ -19,21 +19,16 @@ export default function SoundBall4({ id, removeHandler , scale}) {
 
     const polygon = {
 
-    
-    
         height: 120,
         position: "absolute",
         clipPath: "polygon(50% -50%,100% 50%,50% 150%,0 50%)",
-
-        aspectRatio: "1/cos(30deg)",
-        
- 
-        
+        aspectRatio: "1/cos(30deg)",  
         borderRadius: "5%",
         background: "#e0ebeb",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+         cursor: "pointer",
     }
         const [scope, animate] = useAnimate()
 
@@ -74,19 +69,7 @@ export default function SoundBall4({ id, removeHandler , scale}) {
         
             fxRef.current = new Tone.Compressor().toDestination()
 
-            synthRef.current = new Tone.MetalSynth({
-frequency : 10000 ,
-envelope : {
-attack : 0.001 ,
-decay : 1.1 ,
-release : 0.1
-} ,
-harmonicity : 5.1 ,
-modulationIndex : 32 ,
-resonance : 4000 ,
-octaves : 1.5
-}
-)
+            synthRef.current = new Tone.MetalSynth()
     
             euclidRef.current = new Euclid(0, 3, 16)
             //schedule loop (starts when transport starts)
@@ -137,8 +120,6 @@ octaves : 1.5
         }
         
        }
-
-    
 
        const offsetHandler = (e) => {
         

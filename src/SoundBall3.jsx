@@ -30,6 +30,7 @@ export default function SoundBall2({ id, removeHandler , scale}) {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        cursor: "pointer",
     }
         const [scope, animate] = useAnimate()
 
