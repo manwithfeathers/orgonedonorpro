@@ -39,7 +39,7 @@ function App() {
 
 
 
-  const [scale, setScale ] = useState("major")
+  const [scale, setScale ] = useState("majorpentatonic")
   const [bpm, setBpm ] = useState(100)
 
   const handleStart = () => {
@@ -150,7 +150,7 @@ function App() {
             <Button className="d-flex align-items-center justify-content-center" type="Button" variant="outline-dark" onClick= { handleVoiceMaker3 } ><FontAwesomeIcon icon={faPlus}></FontAwesomeIcon></Button>
             <Button className="d-flex align-items-center justify-content-center" type="Button" variant="outline-dark" onClick= { handleVoiceMaker4 } ><FontAwesomeIcon icon={faPlus}></FontAwesomeIcon></Button>
             <Button className="d-flex align-items-center justify-content-center" type="Button" variant="outline-dark" onClick= { handleSettings } ><FontAwesomeIcon icon={faGear}></FontAwesomeIcon></Button>
-            {showSettings && <Settings scaleHandler={scaleHandler} bpmHandler={bpmHandler}/>}
+            {showSettings && <Settings scaleHandler={scaleHandler} bpmHandler={bpmHandler} scale={scale}/>}
 
 
 
