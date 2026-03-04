@@ -46,14 +46,14 @@ body {
   color: white;
   background-color: black;
   
-  min-height: 100vh;
+  height: 100dvh;
   display: flex;
   inset: 0;
   flex-direction: column;
   justify-content: center;
-  align-items: left;
+  align-items: center;
   cursor: pointer;
-  width: 100vw;
+  width: 100%;
   margin:0;
   padding:0;
   letter-spacing: 0.009em;

@@ -19,7 +19,6 @@ import { faMinus } from '@fortawesome/free-solid-svg-icons'
 
 export default function SoundBall({ id, removeHandler , scale}) {
 
-    
 
 
     const ball = {
@@ -52,12 +51,15 @@ export default function SoundBall({ id, removeHandler , scale}) {
         const panRef = useRef(null)
 
         // x y of ball
+        const wRange = window.innerWidth * 0.4
+        const hRange = window.innerHeight * 0.4
+
         const x = useMotionValue((Math.random() * 200) - 100)
         const y = useMotionValue((Math.random() * 200) - 100)
 
-        const density = useTransform(x, [-300, 300], [0, 16]);
-        const rawPitch = useTransform(y, [-300, 300], [70, 24]);
-        const rawPan = useTransform(x, [-300, 300], [-0.8, 0.8])
+        const density = useTransform(x, [-wRange, wRange], [0, 16]);
+        const rawPitch = useTransform(y, [-hRange, hRange], [70, 24]);
+        const rawPan = useTransform(x, [-wRange, wRange], [-0.8, 0.8])
         
         useEffect(() => {
             // this runs once after mount (first render)
@@ -153,7 +155,7 @@ export default function SoundBall({ id, removeHandler , scale}) {
             if (euclidRef.current.beat) {
                 
                 synthRef.current.triggerAttackRelease(note, "8n");
-                animate(scope.current, { opacity: 0.9 })
+                animate(scope.current, { opacity: 0.8 })
                     
             } else {
                  animate(scope.current, { opacity: 1 })
@@ -195,10 +197,10 @@ export default function SoundBall({ id, removeHandler , scale}) {
         
             <motion.div className={{id}} drag 
                 dragConstraints={{
-                    top: -300,
-                    left: -300,
-                    right: 300,
-                    bottom: 300,
+                    top: -hRange,
+                    left: -wRange,
+                    right: wRange,
+                    bottom: hRange,
                 }} style={{ ...ball, x, y }} ref={scope}>
                 <div >
                     <Stack gap={1} >
