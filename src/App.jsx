@@ -5,6 +5,7 @@ import SoundBall from "./SoundBall.jsx"
 import SoundBall2 from "./SoundBall2.jsx"
 import SoundBall3 from "./SoundBall3.jsx"
 import SoundBall4 from "./SoundBall4.jsx"
+import Settings from './Settings.jsx'
 
 
 import * as Tone from "tone"
@@ -18,6 +19,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faPlay } from '@fortawesome/free-solid-svg-icons'
 import { faPause } from '@fortawesome/free-solid-svg-icons'
+import { faGear } from '@fortawesome/free-solid-svg-icons'
+
 
 
 
@@ -32,12 +35,15 @@ function App() {
   const [voices3, setVoices3 ] = useState([])
   const [voices4, setVoices4 ] = useState([])
 
+  const [showSettings, setShowSettings] = useState(false)
+
 
 
   const [scale, setScale ] = useState("major")
   const [bpm, setBpm ] = useState(100)
 
   const handleStart = () => {
+    Tone.start()
     setStarted(!started)
   }
 
@@ -93,6 +99,10 @@ function App() {
     setScale(e.target.value)
   }
 
+  const handleSettings = (e) => {
+    setShowSettings(!showSettings)
+  }
+
   const bpmHandler = (e) => {
     let bpm = Number(e.target.value)
    
@@ -139,6 +149,9 @@ function App() {
             <Button className="d-flex align-items-center justify-content-center" type="Button" variant="outline-dark" onClick= { handleVoiceMaker2 } ><FontAwesomeIcon icon={faPlus}></FontAwesomeIcon></Button>
             <Button className="d-flex align-items-center justify-content-center" type="Button" variant="outline-dark" onClick= { handleVoiceMaker3 } ><FontAwesomeIcon icon={faPlus}></FontAwesomeIcon></Button>
             <Button className="d-flex align-items-center justify-content-center" type="Button" variant="outline-dark" onClick= { handleVoiceMaker4 } ><FontAwesomeIcon icon={faPlus}></FontAwesomeIcon></Button>
+            <Button className="d-flex align-items-center justify-content-center" type="Button" variant="outline-dark" onClick= { handleSettings } ><FontAwesomeIcon icon={faGear}></FontAwesomeIcon></Button>
+            {showSettings && <Settings scaleHandler={scaleHandler} bpmHandler={bpmHandler}/>}
+
 
 
 

@@ -143,8 +143,7 @@ export default function SoundBall({ id, removeHandler , scale}) {
             euclidRef.current.bang()
 
             // get note data from y-axis of ball
-            let quantisedNote = quantise(pitchRef.current, "majorpentatonic")
-           
+            let quantisedNote = quantise(pitchRef.current, scaleRef.current)
            
             let note = Tone.Frequency(quantisedNote, "midi").toFrequency()
 
