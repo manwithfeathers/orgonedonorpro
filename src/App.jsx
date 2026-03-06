@@ -33,6 +33,7 @@ function App() {
   const [voices2, setVoices2 ] = useState([])
   const [voices3, setVoices3 ] = useState([])
   const [voices4, setVoices4 ] = useState([])
+  const [async, setAsync] = useState(false)
 
   const [showSettings, setShowSettings] = useState(false)
 
@@ -98,6 +99,10 @@ function App() {
     setScale(e.target.value)
   }
 
+   const asyncHandler = (e) => {
+    setAsync(!async)
+  }
+
   const handleSettings = (e) => {
     setShowSettings(!showSettings)
   }
@@ -121,10 +126,12 @@ function App() {
     return( 
       <>
         <div className="splash" onClick = {handleStart}>
-          <h3>
-            
           
-         
+         <h2> Welcome to Orgone Donor Euclidean Synthesiser</h2><br /><br/> 
+          <h3>
+          Add new voices and move them around<br />
+          Up and down: pitch<br />
+          Right and left: rhythm density<br /><br/>
             iPhone users: make sure your phone is not on silent<br /><br/>
        
           
@@ -149,7 +156,7 @@ function App() {
             <Button className="d-flex align-items-center justify-content-center" type="Button" variant="outline-dark" onClick= { handleVoiceMaker3 } ><FontAwesomeIcon icon={faPlus}></FontAwesomeIcon></Button>
             <Button className="d-flex align-items-center justify-content-center" type="Button" variant="outline-dark" onClick= { handleVoiceMaker4 } ><FontAwesomeIcon icon={faPlus}></FontAwesomeIcon></Button>
             <Button className="d-flex align-items-center justify-content-center" type="Button" variant="outline-dark" onClick= { handleSettings } ><FontAwesomeIcon icon={faGear}></FontAwesomeIcon></Button>
-            {showSettings && <Settings scaleHandler={scaleHandler} bpmHandler={bpmHandler} scale={scale}/>}
+            {showSettings && <Settings scaleHandler={scaleHandler} bpmHandler={bpmHandler} scale={scale} asyncHandler={asyncHandler}/>}
 
          </Stack>
 
@@ -163,6 +170,7 @@ function App() {
                   type = "fm"
                   shape = {ball}
                   bus = "bus1"
+                  async = {async}
                   />
               ))}
 
@@ -177,7 +185,7 @@ function App() {
                   type = "square"
                   shape = {square}
                   bus = "bus1"
-                  
+                   async = {async}
                
                   />
               ))}
@@ -191,6 +199,7 @@ function App() {
                   type = "kick"
                    shape = {rhombus}
                   bus = "bus2"
+                   async = {async}
 
                     
                    
@@ -207,7 +216,7 @@ function App() {
                   type = "snare"
                    shape = {polygon}
                   bus = "bus2"
-
+              async = {async}
                  
                    
                   />

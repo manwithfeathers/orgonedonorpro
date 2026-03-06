@@ -16,7 +16,7 @@ import { useMixer } from "./Mixer.jsx"
 
 
 
-export default function SoundBall({ id, removeHandler , scale, type, shape, bus}) {
+export default function SoundBall({ id, removeHandler , scale, type, shape, bus, async=false}) {
 
         const {master, bus1, bus2} = useMixer()
         const buses = {master, bus1, bus2}
@@ -63,24 +63,27 @@ export default function SoundBall({ id, removeHandler , scale, type, shape, bus}
 
             panRef.current = new Tone.Panner(0)
             
-            
             panRef.current.pan.value = rawPan.get()
-        
 
             synthRef.current = synths[type]()
+
+            if (!async) {
     
-            euclidRef.current = new Euclid(0, 3, 16)
-            //schedule loop (starts when transport starts)
+                euclidRef.current = new Euclid(0, 3, 16)
+            } else {
+                let l = Math.floor(Math.random() * 16)
+                euclidRef.current = new Euclid(0, 3, l)
+              
+
+            }
+
+            //schedulae loop (starts when transport starts)
             loopRef.current = new Tone.Loop(playNote, "8n").start(0);
             
             synthRef.current.connect(panRef.current)
             
             panRef.current.connect(buses[bus])
           
-            
-           
-           
-
               return () => {
                 //clean up
                 if (loopRef.current) loopRef.current.dispose()
@@ -164,9 +167,13 @@ export default function SoundBall({ id, removeHandler , scale, type, shape, bus}
 
         density.onChange((val) => {
           
-            
-            setEucBeats(Math.floor(density.get()))
+            if (Math.floor(density.get() <= euclidRef.current.length)) {
 
+                setEucBeats(Math.floor(density.get()))
+            } else {
+                setEucBeats(euclidRef.current.length)
+            }
+        
         })
 
         rawPan.onChange((val) => {

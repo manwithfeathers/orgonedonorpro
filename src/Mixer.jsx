@@ -4,7 +4,10 @@ import * as Tone from "tone";
 // create audio context 
 const AudioContext = createContext(null)
 
+
+
 export const useMixer = () => useContext(AudioContext)
+
 
 export default function Mixer({ children }) {
 
@@ -12,6 +15,13 @@ export default function Mixer({ children }) {
     const bus1Ref = useRef(null)
     const bus2Ref = useRef(null)
     const revRef = useRef(null)
+
+    const [fx1Level, setFx1Level] = useState(0.1)
+
+    
+
+    
+
     
     if (!masterRef.current) {
          masterRef.current = Tone.getDestination()
@@ -23,7 +33,7 @@ export default function Mixer({ children }) {
     }
 
     if (!bus1Ref.current) {
-         bus1Ref.current = new Tone.FeedbackDelay()
+         bus1Ref.current = new Tone.FeedbackDelay({feedback: fx1Level})
          bus1Ref.current.connect(revRef.current)
          revRef.current.connect(masterRef.current)
 
@@ -34,12 +44,15 @@ export default function Mixer({ children }) {
         bus2Ref.current.connect(masterRef.current)
     }
 
-   
+    useEffect(() => {
+        bus1Ref.current.feedback.value = fx1Level
+    }, [fx1Level])
 
+   
     return (
         <>
            
-            <AudioContext.Provider value={{master: masterRef.current, bus1: bus1Ref.current, bus2: bus2Ref.current }}>
+            <AudioContext.Provider value={{master: masterRef.current, bus1: bus1Ref.current, bus2: bus2Ref.current, setFx1Level }}>
                 {children}
             </AudioContext.Provider>
         
