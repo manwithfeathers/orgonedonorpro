@@ -162,6 +162,7 @@ function App() {
                   scale = {scale}
                   type = "fm"
                   shape = {ball}
+                  bus = "bus1"
                   />
               ))}
 
@@ -175,6 +176,9 @@ function App() {
                   scale = {scale}
                   type = "square"
                   shape = {square}
+                  bus = "bus1"
+                  
+               
                   />
               ))}
 
@@ -186,6 +190,10 @@ function App() {
                   scale = {scale}
                   type = "kick"
                    shape = {rhombus}
+                  bus = "bus2"
+
+                    
+                   
                   />
               ))}
 
@@ -198,6 +206,10 @@ function App() {
                   scale = {scale}
                   type = "snare"
                    shape = {polygon}
+                  bus = "bus2"
+
+                 
+                   
                   />
               ))}
               

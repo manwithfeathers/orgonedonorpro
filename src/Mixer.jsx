@@ -11,19 +11,26 @@ export default function Mixer({ children }) {
     const masterRef = useRef(null)
     const bus1Ref = useRef(null)
     const bus2Ref = useRef(null)
+    const revRef = useRef(null)
     
     if (!masterRef.current) {
          masterRef.current = Tone.getDestination()
     }
 
+    if (!revRef.current) {
+        revRef.current = new Tone.Reverb()
+
+    }
+
     if (!bus1Ref.current) {
-         bus1Ref.current = new Tone.Reverb()
-         bus1Ref.current.connect(masterRef.current)
+         bus1Ref.current = new Tone.FeedbackDelay()
+         bus1Ref.current.connect(revRef.current)
+         revRef.current.connect(masterRef.current)
 
     }
 
     if (!bus2Ref.current) {
-         bus2Ref.current = new Tone.Compressor() 
+        bus2Ref.current = new Tone.Compressor() 
         bus2Ref.current.connect(masterRef.current)
     }
 

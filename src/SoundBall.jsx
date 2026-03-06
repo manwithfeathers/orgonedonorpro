@@ -16,11 +16,11 @@ import { useMixer } from "./Mixer.jsx"
 
 
 
-export default function SoundBall({ id, removeHandler , scale, type, shape}) {
+export default function SoundBall({ id, removeHandler , scale, type, shape, bus}) {
 
-    const {master, bus1, bus2} = useMixer()
+        const {master, bus1, bus2} = useMixer()
+        const buses = {master, bus1, bus2}
 
-    
         const [scope, animate] = useAnimate()
 
         const [eucLength, setEucLength] = useState(16)
@@ -31,9 +31,8 @@ export default function SoundBall({ id, removeHandler , scale, type, shape}) {
         const euclidRef = useRef(null)
         const loopRef = useRef(null)
        
-        const fxRef = useRef(null)
-        const fx2Ref = useRef(null)
     
+
         const scaleRef = useRef(null)
         const pitchRef = useRef(null)
         const panRef = useRef(null)
@@ -66,13 +65,7 @@ export default function SoundBall({ id, removeHandler , scale, type, shape}) {
             
             
             panRef.current.pan.value = rawPan.get()
-            fx2Ref.current = new Tone.FeedbackDelay("8n", 0.1)
         
-            fxRef.current = new Tone.Reverb({
-                roomSize : 0.1 ,
-                dampening : 10000,
-                wet: 0.7
-                })
 
             synthRef.current = synths[type]()
     
@@ -80,10 +73,10 @@ export default function SoundBall({ id, removeHandler , scale, type, shape}) {
             //schedule loop (starts when transport starts)
             loopRef.current = new Tone.Loop(playNote, "8n").start(0);
             
-            synthRef.current.connect(master)
+            synthRef.current.connect(panRef.current)
             
-            panRef.current.connect(fx2Ref.current)
-            fx2Ref.current.connect(fxRef.current)
+            panRef.current.connect(buses[bus])
+          
             
            
            
@@ -92,8 +85,6 @@ export default function SoundBall({ id, removeHandler , scale, type, shape}) {
                 //clean up
                 if (loopRef.current) loopRef.current.dispose()
                 if (synthRef.current) synthRef.current.dispose()
-                if (fx2Ref.current) fx2Ref.current.dispose()
-                if (fxRef.current) fxRef.current.dispose()
                 if (panRef.current) panRef.current.dispose()
   }
 
@@ -202,8 +193,6 @@ export default function SoundBall({ id, removeHandler , scale, type, shape}) {
                     <Stack gap={1} >
                         <Button variant="outline-dark"  type="Button" onClick = {() => removeHandler(id)}><FontAwesomeIcon icon={faMinus}></FontAwesomeIcon></Button>
 
-                    
-                    
     
                 
                         {/* <div>
