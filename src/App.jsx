@@ -1,12 +1,11 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect , useContext } from 'react'
 import './App.css'
 // import SampleVoice from "./SampleVoice.jsx"
 import SoundBall from "./SoundBall.jsx"
-import SoundBall2 from "./SoundBall2.jsx"
-import SoundBall3 from "./SoundBall3.jsx"
-import SoundBall4 from "./SoundBall4.jsx"
-import Settings from './Settings.jsx'
 
+import Settings from './Settings.jsx'
+import Mixer from './Mixer.jsx'
+import { ball, square, rhombus, polygon } from './shapes.js'
 
 import * as Tone from "tone"
 import Button from 'react-bootstrap/Button';
@@ -140,7 +139,7 @@ function App() {
 
   return (
     <>
-    
+    <Mixer>
      
         
           <Stack className="bg-info-subtle p-3 rounded shadow-sm mb-4 w-auto" direction="horizontal" gap={3}>
@@ -152,13 +151,8 @@ function App() {
             <Button className="d-flex align-items-center justify-content-center" type="Button" variant="outline-dark" onClick= { handleSettings } ><FontAwesomeIcon icon={faGear}></FontAwesomeIcon></Button>
             {showSettings && <Settings scaleHandler={scaleHandler} bpmHandler={bpmHandler} scale={scale}/>}
 
-
-
-
-           
          </Stack>
 
-            
     
               {voices1.map( id => (
                 <SoundBall 
@@ -166,40 +160,48 @@ function App() {
                   removeHandler = {removeHandler1}
                   id = {id}
                   scale = {scale}
+                  type = "fm"
+                  shape = {ball}
                   />
               ))}
 
              
 
                {voices2.map( id => (
-                <SoundBall2 
+                <SoundBall 
                   key={id}
                   removeHandler = {removeHandler2}
                   id = {id}
                   scale = {scale}
+                  type = "square"
+                  shape = {square}
                   />
               ))}
 
                {voices3.map( id => (
-                <SoundBall3
+                <SoundBall
                   key={id}
                   removeHandler = {removeHandler3}
                   id = {id}
                   scale = {scale}
+                  type = "kick"
+                   shape = {rhombus}
                   />
               ))}
 
 
                {voices4.map( id => (
-                <SoundBall4
+                <SoundBall
                   key={id}
                   removeHandler = {removeHandler4}
                   id = {id}
                   scale = {scale}
+                  type = "snare"
+                   shape = {polygon}
                   />
               ))}
               
-
+    </Mixer>
     </>
   )
 }

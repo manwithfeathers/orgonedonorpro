@@ -3,10 +3,7 @@ import Euclid from "./Euclid.js"
 import quantise from "./quantise.js"
 import { useRef, useEffect, useState} from 'react';
 import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
+
 import Stack from 'react-bootstrap/Stack';
 import {motion, useMotionValue, useTransform, useAnimate} from "framer-motion"
 // import { useAnimate } from "motion/react"
@@ -14,25 +11,16 @@ import {motion, useMotionValue, useTransform, useAnimate} from "framer-motion"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMinus } from '@fortawesome/free-solid-svg-icons'
 
+import { useMixer } from "./Mixer.jsx"
 
 
 
-export default function SoundBall({ id, removeHandler , scale}) {
 
+export default function SoundBall({ id, removeHandler , scale, type, shape}) {
 
+    const {master, bus1, bus2} = useMixer()
 
-    const ball = {
-        width: 120,
-        height: 120,
-        position: "absolute",
-        
-        borderRadius: "50%",
-        background: "#5dacbd",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        cursor: "pointer",
-    }
+    
         const [scope, animate] = useAnimate()
 
         const [eucLength, setEucLength] = useState(16)
@@ -60,6 +48,13 @@ export default function SoundBall({ id, removeHandler , scale}) {
         const density = useTransform(x, [-wRange, wRange], [0, 16]);
         const rawPitch = useTransform(y, [-hRange, hRange], [70, 24]);
         const rawPan = useTransform(x, [-wRange, wRange], [-0.8, 0.8])
+
+        const synths = {
+            fm: () => new Tone.FMSynth(),
+            square: () => new Tone.Synth({oscillator: {type: "fatsquare"}}),
+            kick: () => new Tone.MembraneSynth(),
+            snare: () => new Tone.MetalSynth(),
+        }
         
         useEffect(() => {
             // this runs once after mount (first render)
@@ -77,19 +72,20 @@ export default function SoundBall({ id, removeHandler , scale}) {
                 roomSize : 0.1 ,
                 dampening : 10000,
                 wet: 0.7
-                }).toDestination()
+                })
 
-            synthRef.current = new Tone.FMSynth()
+            synthRef.current = synths[type]()
     
             euclidRef.current = new Euclid(0, 3, 16)
             //schedule loop (starts when transport starts)
             loopRef.current = new Tone.Loop(playNote, "8n").start(0);
             
-            synthRef.current.connect(panRef.current)
+            synthRef.current.connect(master)
             
             panRef.current.connect(fx2Ref.current)
-            
             fx2Ref.current.connect(fxRef.current)
+            
+           
            
 
               return () => {
@@ -201,7 +197,7 @@ export default function SoundBall({ id, removeHandler , scale}) {
                     left: -wRange,
                     right: wRange,
                     bottom: hRange,
-                }} style={{ ...ball, x, y }} ref={scope}>
+                }} style={{ ...shape, x, y }} ref={scope}>
                 <div >
                     <Stack gap={1} >
                         <Button variant="outline-dark"  type="Button" onClick = {() => removeHandler(id)}><FontAwesomeIcon icon={faMinus}></FontAwesomeIcon></Button>
