@@ -16,66 +16,63 @@ export default function Settings ({scaleHandler, bpmHandler, scale, asyncHandler
    
 
     return (
-        <div className="border border-dark rounded b-2">
+        <div className="border border-dark rounded p-4" data-bs-theme="dark">
             
-            <Form.Select value={scale} size="sm" className="mb-2"onChange={scaleHandler}>
+           
+         
+            <Stack  >
                 
-                <option value="majorpentatonic">majorpentatonic</option>
-                <option value="minorpentatonic">minorpentatonic</option>
-                <option value="major">major</option>
-                <option value="minor">minor</option>
-                <option value="dorian">dorian</option>
-                <option value="mixolydian">mixolydian</option>
-                <option value="lydian">lydian</option>
+                    <Form.Group className="w-75">
+                        <Form.Label>Tempo
+
+                        </Form.Label>
+                        <Form.Range onChange ={bpmHandler} min="10" max="200" step="1" value={bpm} >
+
+                        </Form.Range>
                 
-            </Form.Select> 
-            <div>
-                <Stack className="align-items-start">
-                    <div >
-                        <Form.Group>
-                            <Form.Label>Tempo
+                    </Form.Group>
+                
 
-                            </Form.Label>
-                            <Form.Range onChange ={bpmHandler} min="10" max="200" step="1" value={bpm}>
+                    <Form.Group className="w-75">
+                            <Form.Label>Feedback
 
-                            </Form.Range>
-                    
-                        </Form.Group>
-                    </div>
-                    <div>
+                        </Form.Label>
 
-                        <Form.Group>
-                              <Form.Label>Feedback
+                        <Form.Range onChange ={fxHandler} min="0" max="1" step="0.01" >
 
-                            </Form.Label>
-
-                            <Form.Range onChange ={fxHandler} min="0" max="1" step="0.01" >
-
-                            </Form.Range>
-                          
-                        </Form.Group>
-                    </div>
-                    <div>
-                        <Form.Group>
-                            <Form.Label>Note Probability
-
-                            </Form.Label>
-                            <Form.Range onChange ={noteProbabilityHandler} min="0" max="1" step="0.01" value={noteProbability}>
-
-                            </Form.Range>
-                            
-                        </Form.Group>
-                    </div>
-
-                     <Form.Check 
-                        type="switch"
-                        onChange={asyncHandler}
-                        label="async"
+                        </Form.Range>
                         
-          />
-                </Stack>
+                    </Form.Group>
+                
+                    <Form.Group className="w-75">
+                        <Form.Label>Note Probability
 
-             </div>
+                        </Form.Label>
+                        <Form.Range onChange ={noteProbabilityHandler} min="0" max="1" step="0.01" value={noteProbability} >
+
+                        </Form.Range>
+                        
+                    </Form.Group>
+                    <Form.Select value={scale} size="sm" className="mb-2 w-75"onChange={scaleHandler} >
+                
+                        <option value="majorpentatonic">majorpentatonic</option>
+                        <option value="minorpentatonic">minorpentatonic</option>
+                        <option value="major">major</option>
+                        <option value="minor">minor</option>
+                        <option value="dorian">dorian</option>
+                        <option value="mixolydian">mixolydian</option>
+                        <option value="lydian">lydian</option>
+                
+                    </Form.Select> 
+
+                    <Form.Check 
+                    type="switch"
+                    onChange={asyncHandler}
+                    label="async"
+                />
+            </Stack>
+
+             
 
 
         </div> 

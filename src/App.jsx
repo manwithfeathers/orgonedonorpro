@@ -155,9 +155,12 @@ function App() {
   return (
     <>
     <Mixer>
+      <div>
+        {showSettings && <Settings scaleHandler={scaleHandler} bpmHandler={bpmHandler} scale={scale} asyncHandler={asyncHandler} noteProbabilityHandler={noteProbabilityHandler} bpm={bpm} noteProbability={noteProbability}/>}
+      </div>
      
         
-          <Stack className="bg-info-subtle p-3 rounded shadow-sm mb-4 w-auto" direction="horizontal" gap={3}>
+          <Stack className="bg-info-subtle p-2 rounded shadow-sm w-auto" direction="horizontal" gap={3}>
             <Button className="d-flex align-items-center justify-content-center" type="Button" variant="outline-dark"  onClick= { handlePlay } > <FontAwesomeIcon icon={ playing ? faPause : faPlay}></FontAwesomeIcon> </Button>
             <Button className="d-flex align-items-center justify-content-center" type="Button" variant="outline-dark" onClick= { handleVoiceMaker1 } ><FontAwesomeIcon icon={faPlus}></FontAwesomeIcon></Button>
             <Button className="d-flex align-items-center justify-content-center" type="Button" variant="outline-dark" onClick= { handleVoiceMaker2 } ><FontAwesomeIcon icon={faPlus}></FontAwesomeIcon></Button>
@@ -165,9 +168,10 @@ function App() {
             <Button className="d-flex align-items-center justify-content-center" type="Button" variant="outline-dark" onClick= { handleVoiceMaker4 } ><FontAwesomeIcon icon={faPlus}></FontAwesomeIcon></Button>
             <Button className="d-flex align-items-center justify-content-center" type="Button" variant="outline-dark" onClick= { handleSettings } ><FontAwesomeIcon icon={faGear}></FontAwesomeIcon></Button>
          
-            {showSettings && <Settings scaleHandler={scaleHandler} bpmHandler={bpmHandler} scale={scale} asyncHandler={asyncHandler} noteProbabilityHandler={noteProbabilityHandler} bpm={bpm} noteProbability={noteProbability}/>}
+            
 
          </Stack>
+
 
     
               {voices1.map( id => (
