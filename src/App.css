@@ -59,3 +59,7 @@ body {
   letter-spacing: 0.009em;
   font-family: Helvetica;
 }
+
+.settings {
+  background-color: white;
+}

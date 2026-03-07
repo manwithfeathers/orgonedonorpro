@@ -28,7 +28,7 @@ export default function Mixer({ children }) {
     }
 
     if (!revRef.current) {
-        revRef.current = new Tone.Reverb()
+        revRef.current = new Tone.Reverb({wet: 0.7})
 
     }
 

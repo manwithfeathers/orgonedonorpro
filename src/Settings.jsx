@@ -13,6 +13,8 @@ export default function Settings ({scaleHandler, bpmHandler, scale, asyncHandler
         
     }
 
+   
+
     return (
         <div>
             
@@ -29,7 +31,7 @@ export default function Settings ({scaleHandler, bpmHandler, scale, asyncHandler
             </Form.Select> 
             <div>
                 <Stack>
-                    <div>
+                    <div >
                     <Form.Range onChange ={bpmHandler} min="10" max="200" step="1">
 
                     </Form.Range>
@@ -42,7 +44,7 @@ export default function Settings ({scaleHandler, bpmHandler, scale, asyncHandler
                     <Form.Range onChange ={fxHandler} min="0" max="1" step="0.01">
 
                     </Form.Range>
-                    <Form.Label>feedback
+                    <Form.Label>Feedback
 
                     </Form.Label>
                     </div>
