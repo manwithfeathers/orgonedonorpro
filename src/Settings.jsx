@@ -4,7 +4,7 @@ import {useMixer} from './Mixer.jsx'
 
 
 
-export default function Settings ({scaleHandler, bpmHandler, scale, asyncHandler}) {
+export default function Settings ({scaleHandler, bpmHandler, scale, asyncHandler, noteProbabilityHandler, noteProbability, bpm}) {
 
     const { setFx1Level } = useMixer()
 
@@ -16,7 +16,7 @@ export default function Settings ({scaleHandler, bpmHandler, scale, asyncHandler
    
 
     return (
-        <div>
+        <div className="border border-dark rounded b-2">
             
             <Form.Select value={scale} size="sm" className="mb-2"onChange={scaleHandler}>
                 
@@ -30,23 +30,41 @@ export default function Settings ({scaleHandler, bpmHandler, scale, asyncHandler
                 
             </Form.Select> 
             <div>
-                <Stack>
+                <Stack className="align-items-start">
                     <div >
-                    <Form.Range onChange ={bpmHandler} min="10" max="200" step="1">
+                        <Form.Group>
+                            <Form.Label>Tempo
 
-                    </Form.Range>
-                    <Form.Label>Tempo
+                            </Form.Label>
+                            <Form.Range onChange ={bpmHandler} min="10" max="200" step="1" value={bpm}>
 
-                    </Form.Label>
+                            </Form.Range>
+                    
+                        </Form.Group>
                     </div>
                     <div>
 
-                    <Form.Range onChange ={fxHandler} min="0" max="1" step="0.01">
+                        <Form.Group>
+                              <Form.Label>Feedback
 
-                    </Form.Range>
-                    <Form.Label>Feedback
+                            </Form.Label>
 
-                    </Form.Label>
+                            <Form.Range onChange ={fxHandler} min="0" max="1" step="0.01" >
+
+                            </Form.Range>
+                          
+                        </Form.Group>
+                    </div>
+                    <div>
+                        <Form.Group>
+                            <Form.Label>Note Probability
+
+                            </Form.Label>
+                            <Form.Range onChange ={noteProbabilityHandler} min="0" max="1" step="0.01" value={noteProbability}>
+
+                            </Form.Range>
+                            
+                        </Form.Group>
                     </div>
 
                      <Form.Check 

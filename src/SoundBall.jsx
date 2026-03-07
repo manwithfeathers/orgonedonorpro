@@ -16,7 +16,7 @@ import { useMixer } from "./Mixer.jsx"
 
 
 
-export default function SoundBall({ id, removeHandler , scale, type, shape, bus, async=false}) {
+export default function SoundBall({ id, removeHandler , scale, type, shape, bus, async=false, noteProbability}) {
 
         const {master, bus1, bus2} = useMixer()
         const buses = {master, bus1, bus2}
@@ -36,10 +36,11 @@ export default function SoundBall({ id, removeHandler , scale, type, shape, bus,
         const scaleRef = useRef(null)
         const pitchRef = useRef(null)
         const panRef = useRef(null)
+        const noteProbabilityRef = useRef(null)
 
         // x y of ball
-        const wRange = window.innerWidth * 0.4
-        const hRange = window.innerHeight * 0.4
+        const wRange = window.innerWidth * 0.45
+        const hRange = window.innerHeight * 0.6
 
         const x = useMotionValue((Math.random() * 200) - 100)
         const y = useMotionValue((Math.random() * 200) - 100)
@@ -47,6 +48,7 @@ export default function SoundBall({ id, removeHandler , scale, type, shape, bus,
         const density = useTransform(x, [-wRange, wRange], [0, 16]);
         const rawPitch = useTransform(y, [-hRange, hRange], [70, 24]);
         const rawPan = useTransform(x, [-wRange, wRange], [-0.8, 0.8])
+       
 
         const synths = {
             fm: () => new Tone.FMSynth(),
@@ -67,6 +69,8 @@ export default function SoundBall({ id, removeHandler , scale, type, shape, bus,
 
             synthRef.current = synths[type]()
 
+            noteProbabilityRef.current = 1
+
             if (!async) {
     
                 euclidRef.current = new Euclid(0, 3, 16)
@@ -74,7 +78,6 @@ export default function SoundBall({ id, removeHandler , scale, type, shape, bus,
                 let l = Math.floor(Math.random() * 16)
                 euclidRef.current = new Euclid(0, 3, l)
               
-
             }
 
             //schedulae loop (starts when transport starts)
@@ -93,7 +96,11 @@ export default function SoundBall({ id, removeHandler , scale, type, shape, bus,
 
         }, [])
 
-        
+        useEffect(() => {
+            noteProbabilityRef.current = noteProbability
+           
+        }, [noteProbability])
+
 
         useEffect(() => {
             euclidRef.current.hits = eucBeats
@@ -139,13 +146,15 @@ export default function SoundBall({ id, removeHandler , scale, type, shape, bus,
            
             let note = Tone.Frequency(quantisedNote, "midi").toFrequency()
 
-            // is there a beat on this measure?
+            // is there a beat on this measure - Euclid + probability
             
-            
-            if (euclidRef.current.beat) {
+            if (euclidRef.current.beat && Math.random() <= noteProbabilityRef.current) {
+                
                 
                 synthRef.current.triggerAttackRelease(note, "8n");
                 animate(scope.current, { opacity: 0.8 })
+
+
                     
             } else {
                  animate(scope.current, { opacity: 1 })
@@ -185,8 +194,6 @@ export default function SoundBall({ id, removeHandler , scale, type, shape, bus,
     }, [rawPitch, density, rawPan])
 
    
-        
-
     return (
         
             <motion.div className={{id}} drag 

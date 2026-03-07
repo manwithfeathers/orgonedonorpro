@@ -19,11 +19,13 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faPlay } from '@fortawesome/free-solid-svg-icons'
 import { faPause } from '@fortawesome/free-solid-svg-icons'
 import { faGear } from '@fortawesome/free-solid-svg-icons'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
 
 function App() {
+
 
 
   const [started, setStarted] = useState(false)
@@ -34,6 +36,7 @@ function App() {
   const [voices3, setVoices3 ] = useState([])
   const [voices4, setVoices4 ] = useState([])
   const [async, setAsync] = useState(false)
+  
 
   const [showSettings, setShowSettings] = useState(false)
 
@@ -41,6 +44,7 @@ function App() {
 
   const [scale, setScale ] = useState("majorpentatonic")
   const [bpm, setBpm ] = useState(100)
+  const [noteProbability, setNoteProbability] = useState(1)
 
   const handleStart = () => {
     Tone.start()
@@ -107,6 +111,10 @@ function App() {
     setShowSettings(!showSettings)
   }
 
+  const noteProbabilityHandler = (e) => {
+    setNoteProbability(Number(e.target.value))
+  }
+
   const bpmHandler = (e) => {
     let bpm = Number(e.target.value)
    
@@ -156,7 +164,8 @@ function App() {
             <Button className="d-flex align-items-center justify-content-center" type="Button" variant="outline-dark" onClick= { handleVoiceMaker3 } ><FontAwesomeIcon icon={faPlus}></FontAwesomeIcon></Button>
             <Button className="d-flex align-items-center justify-content-center" type="Button" variant="outline-dark" onClick= { handleVoiceMaker4 } ><FontAwesomeIcon icon={faPlus}></FontAwesomeIcon></Button>
             <Button className="d-flex align-items-center justify-content-center" type="Button" variant="outline-dark" onClick= { handleSettings } ><FontAwesomeIcon icon={faGear}></FontAwesomeIcon></Button>
-            {showSettings && <Settings scaleHandler={scaleHandler} bpmHandler={bpmHandler} scale={scale} asyncHandler={asyncHandler}/>}
+         
+            {showSettings && <Settings scaleHandler={scaleHandler} bpmHandler={bpmHandler} scale={scale} asyncHandler={asyncHandler} noteProbabilityHandler={noteProbabilityHandler} bpm={bpm} noteProbability={noteProbability}/>}
 
          </Stack>
 
@@ -171,6 +180,7 @@ function App() {
                   shape = {ball}
                   bus = "bus1"
                   async = {async}
+                  noteProbability={noteProbability}
                   />
               ))}
 
@@ -185,7 +195,8 @@ function App() {
                   type = "square"
                   shape = {square}
                   bus = "bus1"
-                   async = {async}
+                  async = {async}
+                  noteProbability={noteProbability}
                
                   />
               ))}
@@ -197,9 +208,10 @@ function App() {
                   id = {id}
                   scale = {scale}
                   type = "kick"
-                   shape = {rhombus}
+                  shape = {rhombus}
                   bus = "bus2"
-                   async = {async}
+                  async = {async}
+                  noteProbability={noteProbability}
 
                     
                    
@@ -214,10 +226,10 @@ function App() {
                   id = {id}
                   scale = {scale}
                   type = "snare"
-                   shape = {polygon}
+                  shape = {polygon}
                   bus = "bus2"
-              async = {async}
-                 
+                  async = {async}
+                  noteProbability={noteProbability}
                    
                   />
               ))}
