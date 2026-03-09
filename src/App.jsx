@@ -21,6 +21,8 @@ import { faPause } from '@fortawesome/free-solid-svg-icons'
 import { faGear } from '@fortawesome/free-solid-svg-icons'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import {motion} from "framer-motion"
+
 
 
 
@@ -133,20 +135,32 @@ function App() {
   if (!started) {
     return( 
       <>
-        <div className="splash" onClick = {handleStart}>
+        <motion.div  
+        initial={{opacity: 0}}
+          animate={{
+    x: 0,
+    opacity: 1,
+    transition: {
+      duration: 3
+    }
+  }}
+
+          className="splash" 
+          onClick = {handleStart}>
           
          <h2> Welcome to Orgone Donor Euclidean Synthesiser</h2><br /><br/> 
           <h3>
-          Add new voices and move them around<br />
-          Up and down: pitch<br />
-          Right and left: rhythm density<br /><br/>
-            iPhone users: make sure your phone is not on silent<br /><br/>
+          {/* Add new voices and move them around<br /> */}
+          Up & Down: Pitch<br />
+          Right & Left: Rhythm Density<br /><br/>
+            
+          iPhone users: make sure your phone is not on silent<br /><br/>
        
           
          Click to start 
       
           </h3>
-        </div>
+        </motion.div>
 
       </>
     )

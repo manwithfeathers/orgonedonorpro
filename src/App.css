@@ -45,7 +45,12 @@ body {
 .splash {
   color: white;
   background-color: black;
-  
+
+  /* background: linear-gradient(to right, #e0ebeb 1%,#24527a 1%, #000000 );
+  background-position-x: 200%;
+  background-size: 200%;
+  animation: shimmer 5s infinite linear;
+   */
   height: 100dvh;
   display: flex;
   inset: 0;
@@ -58,8 +63,11 @@ body {
   padding:0;
   letter-spacing: 0.009em;
   font-family: Helvetica;
+ 
+}
+@keyframes shimmer {
+   to {
+      background-position-x: 0%
+   }
 }
 
-.settings {
-  background-color: white;
-}

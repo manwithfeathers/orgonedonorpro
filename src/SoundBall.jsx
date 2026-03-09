@@ -46,7 +46,7 @@ export default function SoundBall({ id, removeHandler , scale, type, shape, bus,
         const y = useMotionValue((Math.random() * 200) - 100)
 
         const density = useTransform(x, [-wRange, wRange], [0, 16]);
-        const rawPitch = useTransform(y, [-hRange, hRange], [70, 24]);
+        const rawPitch = useTransform(y, [-hRange, hRange], [80, 12]);
         const rawPan = useTransform(x, [-wRange, wRange], [-0.8, 0.8])
        
 
