@@ -6,7 +6,7 @@ import {useMixer} from './Mixer.jsx'
 
 export default function Settings ({scaleHandler, bpmHandler, scale, asyncHandler, noteProbabilityHandler, noteProbability, bpm}) {
 
-    const { setFx1Level } = useMixer()
+    const { fx1Level, setFx1Level } = useMixer()
 
     const fxHandler = (e) => {
         setFx1Level(Number(e.target.value))
@@ -38,7 +38,7 @@ export default function Settings ({scaleHandler, bpmHandler, scale, asyncHandler
 
                         </Form.Label>
 
-                        <Form.Range onChange ={fxHandler} min="0" max="1" step="0.01" >
+                        <Form.Range onChange ={fxHandler} min="0" max="1" step="0.01" value={fx1Level} >
 
                         </Form.Range>
                         

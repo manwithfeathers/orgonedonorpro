@@ -52,7 +52,7 @@ export default function Mixer({ children }) {
     return (
         <>
            
-            <AudioContext.Provider value={{master: masterRef.current, bus1: bus1Ref.current, bus2: bus2Ref.current, setFx1Level }}>
+            <AudioContext.Provider value={{master: masterRef.current, bus1: bus1Ref.current, bus2: bus2Ref.current, fx1Level, setFx1Level }}>
                 {children}
             </AudioContext.Provider>
         

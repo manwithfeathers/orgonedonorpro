@@ -144,6 +144,7 @@ function App() {
       duration: 3
     }
   }}
+ 
 
           className="splash" 
           onClick = {handleStart}>
