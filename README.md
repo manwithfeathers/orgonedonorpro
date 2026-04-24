@@ -1,6 +1,8 @@
 # Orgone Donor Pro
 
-A browser based musical instrument written in JavaScript / React. Tone JS library is used for synthesis and sequencing, and Motion library is used for movement and interaction with UI.
+A browser based musical instrument written in JavaScript / React. Tone JS library is used for synthesis and Motion library is used for movement and interaction with UI. Custom classes used for Euclidean sequencer & pitch quantisation.
+
+[Live demo](https://adamdparkinson.co.uk/orgonedonorpro)
 
 ## How does it work
 
