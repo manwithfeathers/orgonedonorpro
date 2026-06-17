@@ -33,10 +33,8 @@ function App() {
   const [started, setStarted] = useState(false)
  
   const [playing, setPlaying] = useState(false)
-  const [voices1, setVoices1 ] = useState([0])
-  const [voices2, setVoices2 ] = useState([])
-  const [voices3, setVoices3 ] = useState([])
-  const [voices4, setVoices4 ] = useState([])
+  const [voices, setVoices ] = useState([{id: Math.random(), type: "fm", shape: ball}])
+ 
   const [async, setAsync] = useState(false)
   
 
@@ -68,38 +66,17 @@ function App() {
     setPlaying(!playing)
   }
 
-  const handleVoiceMaker1 = () => {
-    setVoices1(prev => [...prev, Math.random()])
-  }
-
-  const handleVoiceMaker2 = () => {
-    setVoices2(prev => [...prev, Math.random()])
-  }
-
-  const handleVoiceMaker3 = () => {
-    setVoices3(prev => [...prev, Math.random()])
-  }
-
-  const handleVoiceMaker4 = () => {
-    setVoices4(prev => [...prev, Math.random()])
+  const handleVoiceMaker = (type, shape) => {
+    setVoices(prev => [...prev, {id: Math.random(), type, shape}])
   }
 
 
-  const removeHandler1  = (idToRemove) => {
-    setVoices1(prev => prev.filter( id => id !== idToRemove))
+
+  const removeHandler  = (idToRemove) => {
+    setVoices(prev => prev.filter( voice => voice.id !== idToRemove))
   }
 
-   const removeHandler2  = (idToRemove) => {
-    setVoices2(prev => prev.filter( id => id !== idToRemove))
-  }
 
-  const removeHandler3  = (idToRemove) => {
-    setVoices3(prev => prev.filter( id => id !== idToRemove))
-  }
-
-  const removeHandler4  = (idToRemove) => {
-    setVoices4(prev => prev.filter( id => id !== idToRemove))
-  }
 
   const scaleHandler = (e) => {
     setScale(e.target.value)
@@ -169,37 +146,24 @@ function App() {
       </div>
           <Stack className="bg-info-subtle p-2 rounded shadow-sm w-auto" direction="horizontal" gap={3}>
             <Button className="d-flex align-items-center justify-content-center" type="Button" variant="outline-dark"  onClick= { handlePlay } > <FontAwesomeIcon icon={ playing ? faPause : faPlay}></FontAwesomeIcon> </Button>
-            <Button className="d-flex align-items-center justify-content-center" type="Button" variant="outline-dark" onClick= { handleVoiceMaker1 } ><FontAwesomeIcon icon={faPlus}></FontAwesomeIcon></Button>
-            <Button className="d-flex align-items-center justify-content-center" type="Button" variant="outline-dark" onClick= { handleVoiceMaker2 } ><FontAwesomeIcon icon={faPlus}></FontAwesomeIcon></Button>
-            <Button className="d-flex align-items-center justify-content-center" type="Button" variant="outline-dark" onClick= { handleVoiceMaker3 } ><FontAwesomeIcon icon={faPlus}></FontAwesomeIcon></Button>
-            <Button className="d-flex align-items-center justify-content-center" type="Button" variant="outline-dark" onClick= { handleVoiceMaker4 } ><FontAwesomeIcon icon={faPlus}></FontAwesomeIcon></Button>
+            <Button className="d-flex align-items-center justify-content-center" type="Button" variant="outline-dark" onClick= { () =>handleVoiceMaker("fm", ball) } ><FontAwesomeIcon icon={faPlus}></FontAwesomeIcon></Button>
+            <Button className="d-flex align-items-center justify-content-center" type="Button" variant="outline-dark" onClick= { () =>handleVoiceMaker("square", square) } ><FontAwesomeIcon icon={faPlus}></FontAwesomeIcon></Button>
+            <Button className="d-flex align-items-center justify-content-center" type="Button" variant="outline-dark" onClick= { () =>handleVoiceMaker("kick", polygon ) } ><FontAwesomeIcon icon={faPlus}></FontAwesomeIcon></Button>
+            <Button className="d-flex align-items-center justify-content-center" type="Button" variant="outline-dark" onClick= { () =>handleVoiceMaker("snare", rhombus) } ><FontAwesomeIcon icon={faPlus}></FontAwesomeIcon></Button>
             <Button className="d-flex align-items-center justify-content-center" type="Button" variant="outline-dark" onClick= { handleSettings } ><FontAwesomeIcon icon={faGear}></FontAwesomeIcon></Button>
          </Stack>
 
-              {voices1.map( id => (
-                <SoundBall 
-                  key={id}
-                  removeHandler = {removeHandler1}
-                  id = {id}
-                  scale = {scale}
-                  type = "fm"
-                  shape = {ball}
-                  bus = "bus1"
-                  async = {async}
-                  noteProbability={noteProbability}
-                  />
-              ))}
-
+             
              
 
-              {voices2.map( id => (
+              {voices.map( ({id,type, shape}) => (
                 <SoundBall 
                   key={id}
-                  removeHandler = {removeHandler2}
+                  removeHandler = {removeHandler}
                   id = {id}
                   scale = {scale}
-                  type = "square"
-                  shape = {square}
+                  type = {type}
+                  shape = {shape}
                   bus = "bus1"
                   async = {async}
                   noteProbability={noteProbability}
@@ -207,37 +171,10 @@ function App() {
                   />
               ))}
 
-              {voices3.map( id => (
-                <SoundBall
-                  key={id}
-                  removeHandler = {removeHandler3}
-                  id = {id}
-                  scale = {scale}
-                  type = "kick"
-                  shape = {rhombus}
-                  bus = "bus2"
-                  async = {async}
-                  noteProbability={noteProbability}
-
-                    
-                  />
-              ))}
+            
 
 
-              {voices4.map( id => (
-                <SoundBall
-                  key={id}
-                  removeHandler = {removeHandler4}
-                  id = {id}
-                  scale = {scale}
-                  type = "snare"
-                  shape = {polygon}
-                  bus = "bus2"
-                  async = {async}
-                  noteProbability={noteProbability}
-                   
-                  />
-              ))}
+              
               
     </Mixer>
     </>
