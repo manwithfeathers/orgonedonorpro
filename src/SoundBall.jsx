@@ -196,7 +196,7 @@ export default function SoundBall({ id, removeHandler , scale, type, shape, bus,
    
     return (
         
-            <motion.div className={{id}} drag 
+            <motion.div  drag 
                 dragConstraints={{
                     top: -hRange,
                     left: -wRange,
@@ -207,47 +207,8 @@ export default function SoundBall({ id, removeHandler , scale, type, shape, bus,
                     <Stack gap={1} >
                         <Button variant="outline-dark"  type="Button" onClick = {() => removeHandler(id)}><FontAwesomeIcon icon={faMinus}></FontAwesomeIcon></Button>
 
-    
-                
-                        {/* <div>
-                            < Stack direction="horizontal" gap={1}>
-
-                            <Form.Label className="p-2">density</Form.Label> 
-                            <Form.Label className="p-2 ms-auto" >{eucBeats}</Form.Label>
-
-                        </Stack>
-                
-
-                        <Form.Range className="mb-1" id="beats" type="range" min="0" max="8" step="1"  onChange={beatHandler}></Form.Range>
-                        
-                        </div> */}
-                        {/* <div>
-            
-                    < Stack direction="horizontal" gap={1}>
-                        
-                    
-                            <Form.Label className="p-2">length</Form.Label>
-                            <Form.Label className="p-2 ms-auto">{eucLength}</Form.Label>
-                        </Stack>
-                
-                            <Form.Range className="mb-1" min="1" max="16" step="1" onChange={lengthHandler}></Form.Range>
-                    
-                
-                        </div> */}
-                        {/* <div>
-
-                    < Stack direction="horizontal" gap={1}>
-
-                    
-                        <Form.Label className="p-2">octave</Form.Label> 
-                        <Form.Label className="p-2 ms-auto">{octave}</Form.Label>
 
                     </Stack>
-                        <Form.Range className="mb-1" min="-2" max="2" step="1" onChange={octaveHandler}></Form.Range> 
-                    
-                        </div> */}
-
-                        </Stack>
                 
 
                 </div>

@@ -138,27 +138,21 @@ function App() {
         <motion.div  
         initial={{opacity: 0}}
           animate={{
-    x: 0,
-    opacity: 1,
-    transition: {
-      duration: 3
-    }
-  }}
- 
-
+            x: 0,
+            opacity: 1,
+            transition: {
+              duration: 3
+            }
+          }}
           className="splash" 
           onClick = {handleStart}>
           
          <h2> Welcome to Orgone Donor Euclidean Synthesiser</h2><br /><br/> 
-          <h3>
-          {/* Add new voices and move them around<br /> */}
-          Up & Down: Pitch<br />
+          <h3>Up & Down: Pitch<br />
           Right & Left: Rhythm Density<br /><br/>
             
           iPhone users: make sure your phone is not on silent<br /><br/>
-       
-          
-         Click to start 
+          Click to start 
       
           </h3>
         </motion.div>
@@ -173,8 +167,6 @@ function App() {
       <div>
         {showSettings && <Settings scaleHandler={scaleHandler} bpmHandler={bpmHandler} scale={scale} asyncHandler={asyncHandler} noteProbabilityHandler={noteProbabilityHandler} bpm={bpm} noteProbability={noteProbability}/>}
       </div>
-     
-        
           <Stack className="bg-info-subtle p-2 rounded shadow-sm w-auto" direction="horizontal" gap={3}>
             <Button className="d-flex align-items-center justify-content-center" type="Button" variant="outline-dark"  onClick= { handlePlay } > <FontAwesomeIcon icon={ playing ? faPause : faPlay}></FontAwesomeIcon> </Button>
             <Button className="d-flex align-items-center justify-content-center" type="Button" variant="outline-dark" onClick= { handleVoiceMaker1 } ><FontAwesomeIcon icon={faPlus}></FontAwesomeIcon></Button>
@@ -182,13 +174,8 @@ function App() {
             <Button className="d-flex align-items-center justify-content-center" type="Button" variant="outline-dark" onClick= { handleVoiceMaker3 } ><FontAwesomeIcon icon={faPlus}></FontAwesomeIcon></Button>
             <Button className="d-flex align-items-center justify-content-center" type="Button" variant="outline-dark" onClick= { handleVoiceMaker4 } ><FontAwesomeIcon icon={faPlus}></FontAwesomeIcon></Button>
             <Button className="d-flex align-items-center justify-content-center" type="Button" variant="outline-dark" onClick= { handleSettings } ><FontAwesomeIcon icon={faGear}></FontAwesomeIcon></Button>
-         
-            
-
          </Stack>
 
-
-    
               {voices1.map( id => (
                 <SoundBall 
                   key={id}
@@ -205,7 +192,7 @@ function App() {
 
              
 
-               {voices2.map( id => (
+              {voices2.map( id => (
                 <SoundBall 
                   key={id}
                   removeHandler = {removeHandler2}
@@ -220,7 +207,7 @@ function App() {
                   />
               ))}
 
-               {voices3.map( id => (
+              {voices3.map( id => (
                 <SoundBall
                   key={id}
                   removeHandler = {removeHandler3}
@@ -233,12 +220,11 @@ function App() {
                   noteProbability={noteProbability}
 
                     
-                   
                   />
               ))}
 
 
-               {voices4.map( id => (
+              {voices4.map( id => (
                 <SoundBall
                   key={id}
                   removeHandler = {removeHandler4}

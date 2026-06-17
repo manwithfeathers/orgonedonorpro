@@ -16,10 +16,15 @@ export default function quantise(note, scale) {
     if (scaleArray.includes(note)) {
         return note;
     } else {
-
+    // find the octave
     let octave = Math.floor(note / 12)
+
+    // create "buckets"
     let ratio =  12 / scaleArray.length
+    // strip away octave
     note %= 12
+    
+    // which 'bucket' does it fall into - use this as index for scale
     let pitch = scaleArray[Math.floor(note / ratio)]
     return pitch + octave * 12
     }
